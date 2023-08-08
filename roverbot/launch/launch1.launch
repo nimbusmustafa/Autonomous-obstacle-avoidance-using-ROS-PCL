@@ -1,0 +1,4 @@
+<launch>
+  <node pkg="roverbot" type="gp" name="gp" output="screen"> launch-prefix="gnome-terminal --command" ></node>
+  
+</launch>

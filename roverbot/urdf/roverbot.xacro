@@ -1,0 +1,620 @@
+<?xml version="1.0"?>
+
+<robot name="roverbot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+
+	<xacro:property name="robot_name" value="roverbot" />
+	<xacro:property name="robot_chassis_mass" value="15"/>
+	<xacro:property name="robot_chassis_length" value="0.2"/>
+	<xacro:property name="robot_chassis_radius" value="0.25"/>
+	<xacro:property name="robot_caster_wheel_radius" value="0.03"/>
+	<xacro:property name="robot_caster_wheel_radius_collision" value="0.0499"/>
+
+	<xacro:property name="robot_wheel_mass" value="5"/>
+	<xacro:property name="robot_wheel_length" value="0.05"/>
+	<xacro:property name="robot_wheel_radius" value="0.1"/>
+
+	<xacro:property name="camera_mass" value="0.1"/>
+	<xacro:property name="hokoyu_mass" value="1e-5"/>
+
+	<!-- Make Chassis of Bot -->
+	<link name="chassis">
+		<pose>0 0 0.1 0 0 0</pose>
+
+		<inertial>
+			<mass value="${robot_chassis_mass}"/>
+      		<origin xyz="0.0 0 0" rpy=" 0 0 0"/>
+
+      		<inertia 
+      			ixx="0.5125" ixy="0" ixz="0"
+      			iyy="0.5125" iyz="0"
+      			izz="3.312"
+      		/>
+		</inertial>
+
+		<collision name="collision">
+			<origin xyz="0 0 0.05" rpy=" 0 0 0"/>
+			<geometry>
+				<box size="0.6 0.5 0.2"/>
+			</geometry>
+		</collision>
+
+		<visual name="chassis_visual">
+			<origin xyz="0 0 0.05" rpy=" 0 0 0"/>
+			<geometry>
+				<box size="0.6 0.5 0.2"/>
+			</geometry>
+
+		</visual>
+
+	</link>
+
+
+	<!-- Right Wheel Back -->
+	<link name="right_wheel_back">
+		<inertial>
+			<mass value="${robot_wheel_mass}"/>
+			<origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+			<inertia
+				ixx="0.1" ixy="0.0" ixz="0.0"
+				iyy="0.1" iyz="0.0"
+				izz="0.1"
+			/>
+		</inertial>
+
+		<visual>
+			<origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+			<geometry>
+				<cylinder radius="${robot_wheel_radius}" length="${robot_wheel_length}"/>
+			</geometry>
+		</visual>
+
+		<collision>
+			<origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+			<geometry>
+				<cylinder radius="${robot_wheel_radius}" length="${robot_wheel_length}"/>
+			</geometry>
+		</collision>
+
+	</link>
+
+	<!-- Right Wheel Front-->
+	<link name="right_wheel_front">
+		<inertial>
+			<mass value="${robot_wheel_mass}"/>
+			<origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+			<inertia
+				ixx="0.1" ixy="0.0" ixz="0.0"
+				iyy="0.1" iyz="0.0"
+				izz="0.1"
+			/>
+		</inertial>
+
+		<visual>
+			<origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+			<geometry>
+				<cylinder radius="${robot_wheel_radius}" length="${robot_wheel_length}"/>
+			</geometry>
+		</visual>
+
+		<collision>
+			<origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+			<geometry>
+				<cylinder radius="${robot_wheel_radius}" length="${robot_wheel_length}"/>
+			</geometry>
+		</collision>
+
+	</link>
+
+
+
+	<!-- Left wheel Back-->
+	<link name="left_wheel_back">
+		<inertial>
+			<mass value="${robot_wheel_mass}"/>
+			<origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+			<inertia
+				ixx="0.1" ixy="0.0" ixz="0.0"
+				iyy="0.1" iyz="0.0"
+				izz="0.1"
+			/>
+		</inertial>
+
+		<visual>
+			<origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+			<geometry>
+				<cylinder radius="${robot_wheel_radius}" length="${robot_wheel_length}"/>
+			</geometry>
+		</visual>
+
+		<collision>
+			<origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+			<geometry>
+				<cylinder radius="${robot_wheel_radius}" length="${robot_wheel_length}"/>
+			</geometry>
+		</collision>
+
+	</link>
+
+	<!-- Left wheel Front-->
+	<link name="left_wheel_front">
+		<inertial>
+			<mass value="${robot_wheel_mass}"/>
+			<origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+			<inertia
+				ixx="0.1" ixy="0.0" ixz="0.0"
+				iyy="0.1" iyz="0.0"
+				izz="0.1"
+			/>
+		</inertial>
+
+		<visual>
+			<origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+			<geometry>
+				<cylinder radius="${robot_wheel_radius}" length="${robot_wheel_length}"/>
+			</geometry>
+		</visual>
+
+		<collision>
+			<origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+			<geometry>
+				<cylinder radius="${robot_wheel_radius}" length="${robot_wheel_length}"/>
+			</geometry>
+		</collision>
+
+	</link>
+
+	<!-- CAMERA LINK -->
+	<link name="camera">
+		<inertial>
+			<mass value="${camera_mass}"/>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<inertia
+		        ixx="1e-6" ixy="0.0" ixz="0.0"
+		        iyy="1e-6" iyz="0.0"
+		        izz="1e-6"
+		      />
+		</inertial>
+
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<geometry>
+				<box size="0.05 0.05 0.05"/>
+			</geometry>
+		</visual>
+
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<geometry>
+				<box size="0.05 0.05 0.05"/>
+			</geometry>
+		</collision>
+	</link>
+
+	<!--<link name="camera_optical_link"></link>-->
+
+
+  <link name="dummy_frame"> 
+<inertial>
+      <mass value="0.1"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <!--The 3x3 rotational inertia matrix. -->
+       <inertia ixx="0.0000282916666667" ixy="0" ixz="0" iyy="0.0000282916666667" iyz="0" izz="0.00005625"/>
+    </inertial>
+    <visual>
+
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+     
+    </visual>
+        <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.065" radius="0.005"/>
+      </geometry>
+   
+      </collision>
+
+	  </link>
+ <joint name="dummy_joint" type="fixed">
+    <origin xyz="0 0 0.2" rpy="0 1.57070 1.57070"/>  
+    <parent link="chassis"/>         
+    <child link="dummy_frame"/>       
+  </joint>
+
+	<!--LIDAR LINK-->
+	<link name="hokuyo">
+		<inertial>
+			<mass value="${hokoyu_mass}"/>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+
+			<inertia
+		        ixx="1e-6" ixy="0.0" ixz="0.0"
+		        iyy="1e-6" iyz="0.0"
+		        izz="1e-6"
+		      />
+		</inertial>
+
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<geometry>
+				<mesh filename="package://roverbot/meshes/hokuyo.dae"/>
+			</geometry>
+		</visual>
+
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<geometry>
+				<box size="0.1 0.1 0.1"/>
+			</geometry>
+		</collision>
+	</link>
+ 
+
+
+	<!-- IMU LINK -->
+	<link name="imu_link">
+    <visual>
+      <geometry>
+        <box size="0.15 0.15 0.05"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.15 0.15 0.05"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1e-5" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+  
+   	<!-- GPS LINK -->
+   	  <link name="gps_link">
+    <collision>
+      <origin xyz="0 0 0.1" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.1 0.1 0.1"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0.1" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.05" length="0.05"/>
+      </geometry>
+    </visual>
+
+    <inertial>
+      <origin xyz="0 0 0.1" rpy="0 0 0"/>
+      <mass value="1"/>
+      <inertia
+        ixx="1.0" ixy="0.0" ixz="0.0"
+        iyy="1.0" iyz="0.0"
+        izz="1.0"/>
+    </inertial>
+  </link>
+  
+  
+  
+  	<!-- ZED 2 LINK -->
+  	 <link name="ZED2">
+    <visual>
+      <geometry>
+        <box size="0.05 0.1 0.05"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.05 0.1 0.05"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1e-5" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+  
+  
+  
+	
+	
+	
+	
+
+	<!-- Project center to the ground -->
+	<link name="robot_footprint"></link>
+
+
+
+	<!-- Define Joints -->
+
+	<!-- Right Wheel Joint Back-->
+	<joint type="continuous" name="right_wheel_hinge_back">
+	    <origin xyz="-0.2 -0.30 0" rpy="0 0 0" />
+	    <parent link="chassis"/>
+	    <child link="right_wheel_back" />
+	    <axis xyz="0 1 0" rpy="0 0 0" />
+	    <limit effort="10000" velocity="1000" />
+	    <dynamics damping="1.0" friction="10.0" />
+	</joint>
+
+	<!-- Right Wheel Joint Front-->
+	<joint type="continuous" name="right_wheel_hinge_front">
+	    <origin xyz="0.2 -0.30 0" rpy="0 0 0" />
+	    <parent link="chassis"/>
+	    <child link="right_wheel_front" />
+	    <axis xyz="0 1 0" rpy="0 0 0" />
+	    <limit effort="10000" velocity="1000" />
+	    <dynamics damping="1.0" friction="10.0" />
+	</joint>
+
+
+	<!-- Left Wheel Joint Back-->
+	<joint type="continuous" name="left_wheel_hinge_back">
+	    <origin xyz="-0.2 0.30 0" rpy="0 0 0" />
+	    <parent link="chassis"/>
+	    <child link="left_wheel_back" />
+	    <axis xyz="0 1 0" rpy="0 0 0" />
+	    <limit effort="10000" velocity="1000" />
+	    <dynamics damping="1.0" friction="10.0" />
+	</joint>
+
+	<!-- Left Wheel Joint Front-->
+	<joint type="continuous" name="left_wheel_hinge_front">
+	<origin xyz="0.2 0.30 0" rpy="0 0 0" />
+	<parent link="chassis"/>
+	<child link="left_wheel_front" />
+	<axis xyz="0 1 0" rpy="0 0 0" />
+	<limit effort="10000" velocity="1000" />
+	<dynamics damping="1.0" friction="10.0" />
+	</joint>
+
+	<!-- CAMERA JOINT -->
+	<joint name="camera_joint" type="fixed">
+	<origin xyz="0.26 0 0" rpy="0 0 0" />
+	<parent link="chassis"/>
+	<child link="camera" />
+	<axis xyz="0 1 0"/>
+	</joint>
+
+
+
+
+	
+	<!-- IMU JOINT -->
+	<joint name="imu_joint" type="fixed">
+    	<origin xyz="0.04 0 0.12" rpy="0 0 0" />
+    	<parent link="chassis"/>
+    	<child link="imu_link" />  
+    	<axis xyz="0 1 0"/> 
+  	</joint>
+  
+  
+  	<!--GPS JOINT -->
+  	<joint name="gps_joint" type="fixed">
+    	<origin xyz="0 0 0.1" rpy="0 0 0" />
+    	<parent link="robot_footprint"/>
+    	<child link="gps_link" />  
+   	 <axis xyz="0 1 0"/> 
+  	</joint>
+  
+  
+  	<!-- ZED2 JOINT -->
+  	<joint name="ZED2_joint" type="fixed">
+  	<origin xyz ="-0.15 0 0.195" rpy ="0 0 0" />
+  	<parent link="robot_footprint"/>
+  	<child link ="ZED2" />
+  	<axis xyz ="0 1 0" />
+  	</joint>
+  	
+  	
+  
+  	
+
+
+
+
+	<joint name="robot_footprint_joint" type="fixed">
+		<origin xyz="0 0 0" rpy="0 0 0" />
+		<parent link="robot_footprint"/>
+		<child link="chassis" />
+	</joint>
+
+
+	<!-- Color of bot -->
+	<gazebo reference="left_wheel_front">
+		<material>Gazebo/Black</material>
+		<kp>1000000.0</kp> <!-- kp and kd for rubber -->
+		<kd>100.0</kd>
+		<mu1>1.0</mu1>
+		<mu2>1.0</mu2>
+		<maxVel>1.0</maxVel>
+		<minDepth>0.00</minDepth>
+	</gazebo>
+
+	<gazebo reference="left_wheel_back">
+		<material>Gazebo/Black</material>
+		<kp>1000000.0</kp> <!-- kp and kd for rubber -->
+		<kd>100.0</kd>
+		<mu1>1.0</mu1>
+		<mu2>1.0</mu2>
+		<maxVel>1.0</maxVel>
+		<minDepth>0.00</minDepth>
+	</gazebo>
+
+	<gazebo reference="right_wheel_front">
+		<material>Gazebo/Black</material>
+		<kp>1000000.0</kp> <!-- kp and kd for rubber -->
+		<kd>100.0</kd>
+		<mu1>1.0</mu1>
+		<mu2>1.0</mu2>
+		<maxVel>1.0</maxVel>
+		<minDepth>0.00</minDepth>
+	</gazebo>
+	<gazebo reference="right_wheel_back">
+		<material>Gazebo/Black</material>
+		<kp>1000000.0</kp> <!-- kp and kd for rubber -->
+		<kd>100.0</kd>
+		<mu1>1.0</mu1>
+		<mu2>1.0</mu2>
+		<maxVel>1.0</maxVel>
+		<minDepth>0.00</minDepth>
+	</gazebo>
+	
+
+	<gazebo reference="camera">
+		<material>Gazebo/White</material>
+	</gazebo>
+	
+	<gazebo reference="ZED2">
+		<material>Gazebo/Orange</material>
+	</gazebo>
+
+	<gazebo reference="chassis">
+		<material>Gazebo/Blue</material>
+	</gazebo>
+
+	<gazebo reference="gps_link">
+	<material>Gazebo/Grey</material>
+	</gazebo>
+
+	<!-- Sensors, Camera and Lidar Simulation -->
+	<xacro:include filename="$(find roverbot)/urdf/roverbot.gazebo" />
+
+
+
+<!--Kinect-->
+
+<link name="kinect_link">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+    <box size="0.08 0.08 0.04"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+    <box size="0.08 0.08 0.02"/>
+      </geometry>
+      
+    </visual>
+
+    <inertial>
+      <mass value="1e-5" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+</link>
+
+
+<joint name="kinect_joint" type="fixed">
+    <axis xyz="0 1 0" />
+    <origin xyz="0.1 0.1 0.15" rpy="0 0 0"/>
+    <parent link="chassis"/>
+    <child link="kinect_link"/>
+</joint>
+
+<!--LIDAR JOINT -->
+	<joint name="hokuyo_joint" type="fixed">
+	    <origin xyz="0.1 0 0.2" rpy="0 0 0" />
+	    <parent link="chassis"/>
+	    <child link="hokuyo" />  
+	    <axis xyz="0 1 0"/> 
+	</joint>
+	 
+	 <link name="kinect_link_optical">
+</link>
+
+<joint name="kinect_optical_joint" type="fixed"> 
+    <axis xyz="0 1 0" />
+    <origin xyz="0 0 0" rpy="-1.57 0 -1.57"/>
+    <parent link="kinect_link"/>
+    <child link="kinect_link_optical"/>
+</joint>
+
+
+<gazebo reference="kinect_link">
+  <sensor name="kinect_link_kinect" type="depth">
+    <update_rate>20</update_rate>
+    <camera>
+      <horizontal_fov>2.0</horizontal_fov>
+      <image>
+        <width>640</width>
+        <height>480</height>
+        <format>R8G8B8</format>
+      </image>
+      <clip>
+        <near>0.05</near>
+        <far>3</far>
+      </clip>
+    </camera>
+    <plugin name="kinect_link_controller" filename="libgazebo_ros_openni_kinect.so">
+      <baseline>0.2</baseline>
+      <alwaysOn>true</alwaysOn>
+      <updateRate>1.0</updateRate>
+      <cameraName>kinect</cameraName>
+      <imageTopicName>/kinect/color/image_raw</imageTopicName>
+      <cameraInfoTopicName>/kinect/color/kinect_info</cameraInfoTopicName>
+      <depthImageTopicName>/kinect/depth/image_raw</depthImageTopicName>
+      <depthImageInfoTopicName>/kinect/depth/kinect_info</depthImageInfoTopicName>
+      <pointCloudTopicName>/kinect/depth/points</pointCloudTopicName>
+      <frameName>kinect_link_optical</frameName>
+      <pointCloudCutoff>0.5</pointCloudCutoff>
+      <pointCloudCutoffMax>3.0</pointCloudCutoffMax>
+      <distortionK1>0.00000001</distortionK1>
+      <distortionK2>0.00000001</distortionK2>
+      <distortionK3>0.00000001</distortionK3>
+      <distortionT1>0.00000001</distortionT1>
+      <distortionT2>0.00000001</distortionT2>
+      <CxPrime>0</CxPrime>
+      <Cx>0</Cx>
+      <Cy>0</Cy>
+      <focalLength>0</focalLength>
+      <hackBaseline>0</hackBaseline>
+    </plugin>
+  </sensor>
+</gazebo>
+
+</robot> 
+<!--
+<link name="kinect_link">
+    <inertial>
+      <mass value="0.1"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+       <inertia ixx="0.0000282916666667" ixy="0" ixz="0" iyy="0.0000282916666667" iyz="0" izz="0.00005625"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+     
+    </visual>
+        <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.065" radius="0.005"/>
+      </geometry>
+   
+      </collision>
+  </link>
+    
+-->
+	<!-- CAMERA optical JOINT 
+	<joint name="camera_optical_joint" type="fixed">
+	<origin xyz="0 0 0" rpy="-1.57079 0 -1.57079" />
+	<parent link="kinect_link"/>
+	<child link="camera_optical_link" />
+	<axis xyz="0 1 0"/>
+	</joint> 
+-->
+	<!-- KINECT JOINT 
+	<joint name="kinect_joint" type="fixed">
+	    <origin xyz="0.2 0.0 0.2" rpy="0 0 0" />
+	    <parent link="chassis"/>
+	    <child link="kinect_link" />  
+	    <axis xyz="0 1 0"/> 
+	</joint>
+	-->
